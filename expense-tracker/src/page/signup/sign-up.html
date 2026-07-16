@@ -1,0 +1,88 @@
+<form (ngSubmit)="onSignUp()" class="flex justify-center items-center min-h-screen">
+    <section class="space-y-6 w-full max-w-xl">
+        <h1 class="font-bold text-3xl mb-10">Create an account</h1>
+        <div class="flex flex-col gap-2">
+            <span>First Name</span>
+            <p-inputgroup>
+                <input pInputText type="text" name="firstname" [(ngModel)]="user.firstname" #firstname="ngModel" placeholder="First Name" [invalid]="firstname.invalid && (firstname.touched)" required />
+            </p-inputgroup>
+            @if (firstname.invalid && firstname.touched) {
+                <p-message class="flex flex-col" severity="error" size="small" variant="simple">First Name is required.</p-message>
+            }
+        </div>
+        <div class="flex flex-col gap-2">
+            <span>Last Name</span>
+            <p-inputgroup>
+                <input pInputText name="lastname"  [(ngModel)]="user.lastname" #lastname="ngModel" [invalid]="lastname.invalid && lastname.touched" placeholder="Last Name" required />
+            </p-inputgroup>
+            @if (lastname.invalid && lastname.touched) {
+            <p-message class="flex flex-col" severity="error" size="small" variant="simple">Last Name is required.</p-message>
+            }
+        </div>
+        <div class="flex flex-col gap-2">
+            <span>Email</span>
+            <p-inputgroup>
+                <p-inputgroup-addon>
+                    <svg data-p-icon="user" />
+                </p-inputgroup-addon>
+                <input pInputText name="email" [(ngModel)]="user.email" #email="ngModel" [invalid]="email.invalid && email.touched" placeholder="Email" required/>
+            </p-inputgroup>
+            @if (email.invalid && email.touched) {
+            <p-message class="flex flex-col" severity="error" size="small" variant="simple">Email is required.</p-message>
+            }
+        </div>
+        <div class="flex flex-col gap-2">
+            <span>Create a password</span>
+            <p-iconfield>
+                <p-inputicon>
+                    <svg data-p-icon="lock"></svg>
+                </p-inputicon>
+                <input pInputPassword name="password" [(ngModel)]="user.password" #password="ngModel" [(mask)]="mask" [fluid]="true" [invalid]="password.invalid && password.touched" required/>
+                <p-inputicon (click)="mask = !mask" style="cursor: pointer;">
+                    @if (mask) {
+                    <svg data-p-icon="eye" [size]="16"></svg>
+                    } @else {
+                    <svg data-p-icon="eye-slash" [size]="16"></svg>
+                    }
+                </p-inputicon>
+            </p-iconfield>
+            @if (password.invalid && password.touched) {
+            <p-message class="flex flex-col" severity="error" size="small" variant="simple">Password is required.</p-message>
+            }
+            
+            <ul>
+                @for (item of requirements; track item.id) {
+                    @if (user.password) {
+                        <li class="flex items-center gap-2 list-none ms-1 py-1">
+                            <svg data-p-icon="check-circle" [class]="'transition-all duration-300 ease-out ' + (item.test(user.password) ? 'text-green-500 scale-110 opacity-70' : 'text-surface-400')"></svg>
+                            {{item.label}}
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+        <div class="flex flex-col gap-2">
+            <span>Confirm the password</span>
+            <p-iconfield>
+                <p-inputicon>
+                    <svg data-p-icon="lock"></svg>
+                </p-inputicon>
+                <input pInputPassword name="confirmPassword" [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" [(mask)]="mask" [fluid]="true" [invalid]="confirmPassword.invalid && confirmPassword.touched" />
+                <p-inputicon (click)="mask = !mask" style="cursor: pointer;">
+                    @if (mask) {
+                    <svg data-p-icon="eye" [size]="16"></svg>
+                    } @else {
+                    <svg data-p-icon="eye-slash" [size]="16"></svg>
+                    }
+                </p-inputicon>
+            </p-iconfield>
+            @if (confirmPassword.invalid && confirmPassword.touched) {
+            <p-message class="flex flex-col" severity="error" size="small" variant="simple">Password is required.</p-message>
+            }
+        </div>
+        <div class="pt-3">
+            <button pbutton type="submit" severity="secondary" class="bg-indigo-900 hover:bg-indigo-800 rounded-full font-semibold px-6 py-2 w-full cursor-pointer">Create Account</button>
+        </div>
+    </section>
+</form>
+
