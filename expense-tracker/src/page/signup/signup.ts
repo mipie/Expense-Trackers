@@ -17,7 +17,7 @@ import { Users } from "../../model/users";
 
 
 @Component({
-    selector: 'sign-up',
+    selector: 'signup',
     standalone: true,
     templateUrl: 'sign-up.html',
     imports: [MessageModule, InputTextModule, FormsModule, InputGroupModule, InputGroupAddonModule, User, InputPasswordModule, InputIconModule, Lock, IconFieldModule, Eye, EyeSlash, CheckCircle] 
