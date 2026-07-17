@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, inject } from "@angular/core";
 import { InputGroup } from "primeng/inputgroup";
 import { InputGroupAddon } from "primeng/inputgroupaddon";
 import { User } from '@primeicons/angular/user';
@@ -11,6 +11,9 @@ import { InputPassword } from "primeng/inputpassword";
 import { Eye } from "@primeicons/angular/eye";
 import { EyeSlash } from "@primeicons/angular/eye-slash";
 import { Lock } from '@primeicons/angular/lock';
+import { AuthService } from "../../service/auth.service";
+import { Router } from "@angular/router";
+import { AuthResponse } from "@supabase/supabase-js";
 
 @Component({
     selector: 'login',
@@ -20,6 +23,10 @@ import { Lock } from '@primeicons/angular/lock';
 
 })
 export class Login {
+    authService = inject(AuthService);
+    router = inject(Router);
+    errorMessage = ''
+
     user: Users = {
         firstname: '',
         lastname: '', 
@@ -29,7 +36,14 @@ export class Login {
     };
     mask: boolean = true;
 
-    onSubmit() {
-        
+    async onSubmit() {
+        const {data, error} = await this.authService.signIn(this.user.email, this.user.password) as AuthResponse;
+
+        if (error) {
+            this.errorMessage = error.message;
+        } else {
+            console.log(data);
+            this.router.navigate(['/home']);
+        }
     }
 }

@@ -14,6 +14,8 @@ import { CheckCircle } from '@primeicons/angular/check-circle';
 import { MessageService } from 'primeng/api';
 import { MessageModule } from 'primeng/message';
 import { Users } from "../../model/users";
+import { AuthService } from "../../service/auth.service";
+import { Router } from "@angular/router";
 
 
 @Component({
@@ -25,6 +27,9 @@ import { Users } from "../../model/users";
 
 export class Signup {
     messageService = inject(MessageService);
+    authService = inject(AuthService);
+    router = inject(Router);
+    errorMessage = ''
     
     user: Users =  {
         firstname: '',
@@ -44,7 +49,14 @@ export class Signup {
         { id: 'symbol', label: 'Contains special character', test: (v: string) => /[^a-zA-Z0-9]/.test(v)}
     ]
 
-    onSignUp() {
-        console.log(this.user)
+    async onSignUp() {
+        const {data, error} = await this.authService.Signup(this.user);
+
+        if (error) {
+            this.errorMessage = error.message;
+        } else {
+            console.log(data);
+            this.router.navigate(['/login']);
+        }
     }
 }
