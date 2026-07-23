@@ -124,5 +124,4 @@
 /home/kyamitsu/Webs-Project/Expense-Trackers/backend/backend/obj/Debug/net10.0/backend.pdb
 /home/kyamitsu/Webs-Project/Expense-Trackers/backend/backend/obj/Debug/net10.0/backend.genruntimeconfig.cache
 /home/kyamitsu/Webs-Project/Expense-Trackers/backend/backend/obj/Debug/net10.0/ref/backend.dll
-/home/kyamitsu/Webs-Project/Expense-Trackers/backend/backend/bin/Debug/net10.0/DevOne.Security.Cryptography.BCrypt.dll
 /home/kyamitsu/Webs-Project/Expense-Trackers/backend/backend/bin/Debug/net10.0/BCrypt.Net-Core.dll

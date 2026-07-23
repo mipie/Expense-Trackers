@@ -1,6 +1,9 @@
 @backend_HostAddress = http://localhost:5009
 
-GET {{backend_HostAddress}}/user/
+GET {{backend_HostAddress}}/api/auth/
 Accept: application/json
 
 ###
+
+POST {{backend_HostAddress}}/api/transaction/addTransaction/1
+Accept: application/json

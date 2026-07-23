@@ -23,9 +23,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Configure the database
-builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("Host=localhost;Port=5432;Database=efcore_demo;Username=hama_tech;Password=hama_tech;"));
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql("Host=localhost;Port=5432;Database=expensetrackerdb;Username=postgres;Password=secret_password;"));
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<TransactionService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
