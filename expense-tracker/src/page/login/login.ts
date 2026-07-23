@@ -37,13 +37,14 @@ export class Login {
     mask: boolean = true;
 
     async onSubmit() {
-        const {data, error} = await this.authService.signIn(this.user.email, this.user.password) as AuthResponse;
-
-        if (error) {
-            this.errorMessage = error.message;
-        } else {
-            console.log(data);
-            this.router.navigate(['/home']);
-        }
+        this.authService.signIn(this.user.email, this.user.password).subscribe({
+            next: (data) => {
+                console.log('Connexion reussie !', data);
+                this.router.navigate(["/home"]);
+            }, 
+            error: (err) => {
+                console.error('Erreur recue!', err);
+            }
+        });
     }
 }

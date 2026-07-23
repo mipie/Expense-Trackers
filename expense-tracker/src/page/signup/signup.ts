@@ -49,14 +49,17 @@ export class Signup {
         { id: 'symbol', label: 'Contains special character', test: (v: string) => /[^a-zA-Z0-9]/.test(v)}
     ]
 
-    async onSignUp() {
-        const {data, error} = await this.authService.Signup(this.user);
-
-        if (error) {
-            this.errorMessage = error.message;
-        } else {
-            console.log(data);
-            this.router.navigate(['/login']);
-        }
+    onSignUp() {
+        this.errorMessage = "";
+        this.authService.Signup(this.user).subscribe({
+            next: (data) =>  {
+                console.log('Inscription Reussi!', data);
+                this.router.navigate(['/login']);
+            },
+            error: (err) => {
+                console.error('Erreur recue: ', err);
+                this.errorMessage = err.error?.message;
+            }
+        });
     }
 }
